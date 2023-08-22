@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-    [SerializeField] private Transform ropeTransfoem;
+    [SerializeField] private Transform _playerTransform;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool isFired;
+
+    void Update()
     {
-        // ropeTransfoem.  --- TODO
+        if (isFired)
+        {
+            
+        }
+        else
+        {
+            transform.position = _playerTransform.position;
+        }
     }
 }
