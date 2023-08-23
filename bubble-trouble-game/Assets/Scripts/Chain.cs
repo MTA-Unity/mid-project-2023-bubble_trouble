@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Rope : MonoBehaviour
+public class Chain : MonoBehaviour
 {
     [SerializeField] private Transform _playerTransform;
 
