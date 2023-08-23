@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,5 +24,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         _playerRigidbody.MovePosition(_newPosition);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.tag == "Ball")
+        {
+            GameManager.Instance.UpdateLivesCount(-1);
+        }
     }
 }
