@@ -1,23 +1,16 @@
-using System.Threading;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private Time timer;
+    private Timer _timer;
     private int _ballsInScene;
-    [SerializeField] private const int _startLives = 3;
+    private const int StartLives = 3;
     private int _livesCount;
-    [SerializeField] private float _gameTimeInSeconds = 60f;
-    
-    private float _remainingTime;
-    
     public static GameManager Instance { get; private set; }
-    void Start()
+    void Awake()
     {
-        _livesCount = _startLives;
-        _ballsInScene = GameObject.FindGameObjectsWithTag("Ball").Length;
-        
         // Singleton
         if (Instance == null)
         {
@@ -30,37 +23,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _livesCount = StartLives;
+        Debug.Log("Current lives: " + _livesCount);
+        _timer = FindObjectOfType<Timer>();
+        _ballsInScene = GameObject.FindGameObjectsWithTag("Ball").Length;
+    }
+
     void Update()
     {
+        // Win condition - If there are no balls in the scene
         if (_ballsInScene == 0)
         {
           //TODO Go to main menu (Win UI)
-          Debug.Log("You WIn!!!1");
+          Debug.Log("You Win!!!1");
         }
-
-        if (_livesCount == 0)
+        
+        // Timer lose life condition - If the time has run out decrease a life
+        if (_timer.ShowRemainingTime() < 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            UpdateLivesCount(-1);
         }
-
-        // if (timer.remainingfTime < 0)
-        // {
-        //     livesCount -= 1;
-        // }
     }
     
     private void ResetGame()
     {
-        // Timer.reset();
-       
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void ResetLevel()
     {
-        // Timer.reset();
-        
+        _timer.RestartTimer();
+        Debug.Log("Lives: " + _livesCount);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // TODO Reset player and balls to staring position
     }
 
     public void UpdateBallsInScene(int numToUpdate)
@@ -71,10 +68,17 @@ public class GameManager : MonoBehaviour
     public void UpdateLivesCount(int numToUpdate)
     {
         _livesCount += numToUpdate;
-
-        if (numToUpdate < 0)
+        
+        // If the player has run out of lives, exit level to main menu
+        if (_livesCount == 0)
         {
-            ResetGame();
+            SceneManager.LoadScene("MainMenu");
+        }
+        
+        // Check if a life has been decreased. If so, restart the level
+        else if (numToUpdate == -1)
+        {
+            ResetLevel();
         }
     }
 }
