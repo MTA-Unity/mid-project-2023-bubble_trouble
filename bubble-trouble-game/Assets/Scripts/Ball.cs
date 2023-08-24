@@ -7,6 +7,9 @@ public class Ball : MonoBehaviour
     [SerializeField] private GameObject nextBall;
     void Start()
     {
+        // Trigger the event when a ball is created
+        GameEvents.Instance.TriggerBallCreatedEvent();
+        Debug.Log("Ball Created");
         _ballRigidbody.AddForce(startForce, ForceMode2D.Impulse);
     }
 
@@ -19,15 +22,14 @@ public class Ball : MonoBehaviour
 
             ball1.GetComponent<Ball>().startForce = new Vector2(2f, 5f);
             ball2.GetComponent<Ball>().startForce = new Vector2(-2f, 5f);
-            
-            GameManager.Instance.UpdateBallsInScene(1);
-        }
-
-        else
-        {
-            GameManager.Instance.UpdateBallsInScene(-1);
         }
         
         Destroy(gameObject);
+    }
+    
+    private void OnDestroy()
+    {
+        // Trigger the event when a ball is destroyed
+        GameEvents.Instance.TriggerBallDestroyedEvent();
     }
 }

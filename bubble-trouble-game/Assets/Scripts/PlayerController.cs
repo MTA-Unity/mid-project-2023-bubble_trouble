@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.tag == "Ball")
+        if (other.collider.CompareTag("Ball"))
         {
-            GameManager.Instance.UpdateLivesCount(-1);
+            GameEvents.Instance.TriggerLifeDecreaseEvent();
         }
     }
 }
