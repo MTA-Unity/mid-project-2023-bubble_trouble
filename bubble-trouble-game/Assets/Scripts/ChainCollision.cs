@@ -10,5 +10,6 @@ public class ChainCollision : MonoBehaviour
         {
             other.GetComponent<Ball>().Split();
         }
+        GameManager.Instance.CheckLevelCleared();
     }
 }

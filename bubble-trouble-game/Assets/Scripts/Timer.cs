@@ -28,13 +28,6 @@ public class Timer : MonoBehaviour
                 previousSecond = currentSecond;
                 Debug.Log("Time remaining: " + currentSecond + " seconds");
             }
-
-            if (_remainingTime <= 0f)
-            {
-                // Timer has reached zero, decrease one live
-                _isTimerRunning = false;
-                GameManager.Instance.UpdateLivesCount(-1);
-            }
         }
     }
     
