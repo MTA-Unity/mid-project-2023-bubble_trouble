@@ -5,11 +5,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private Vector2 startForce;
     [SerializeField] private Rigidbody2D _ballRigidbody;
     [SerializeField] private GameObject nextBall;
+    
     void Start()
     {
+        Debug.Log("Ball Created");
         // Trigger the event when a ball is created
         GameEvents.Instance.TriggerBallCreatedEvent();
-        Debug.Log("Ball Created");
         _ballRigidbody.AddForce(startForce, ForceMode2D.Impulse);
     }
 
