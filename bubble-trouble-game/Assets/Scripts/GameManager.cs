@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +8,7 @@ public class GameManager : MonoBehaviour
     private const int StartLives = 3;
     private int _livesCount;
     private float _currentScore = 0f;
-    private readonly string[] _sceneLevelsNames = new string[2] {"Level1", "Level2"};
-    private int _currentLevelIndex = 0;
-    
+
     public static GameManager Instance { get; private set; }
     void Awake()
     {
@@ -73,6 +69,7 @@ public class GameManager : MonoBehaviour
         // When a ball is destroyed in the scene, decrease by 1 the balls counter
         _ballsInScene--;
         Debug.Log("Number of balls in scene: " + _ballsInScene);
+        CheckLevelCleared();
     }
     
     private void OnLifeDecrease()
@@ -89,7 +86,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ResetLevel();
+            Debug.Log("ResetLevel");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
     
@@ -99,30 +97,23 @@ public class GameManager : MonoBehaviour
         _livesCount++;
         Debug.Log("Remained lives: " + _livesCount);
     }
-    
-    private void ResetLevel()
-    {
-        Debug.Log("ResetLevel");
-        SceneManager.LoadSceneAsync(_sceneLevelsNames[_currentLevelIndex]);
-    }
 
-    public void CheckLevelCleared()
+    private void CheckLevelCleared()
     {
         // If there are no balls in the scene - you won the level
         if (_ballsInScene == 0)
         {
             Debug.Log("Level Cleared!");
-            _currentLevelIndex++;
-            // If there are no more levels - You won the game: Go to main menu
-            if (_currentLevelIndex >= _sceneLevelsNames.Length)
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
             {
-                Debug.Log("You Won The Game!");
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene(nextSceneIndex);
             }
-            // Continue to next level
             else
             {
-                SceneManager.LoadScene(_sceneLevelsNames[_currentLevelIndex]);
+                // If there are no more levels - You won the game: Go to main menu
+                Debug.Log("You Won The Game!");
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }
