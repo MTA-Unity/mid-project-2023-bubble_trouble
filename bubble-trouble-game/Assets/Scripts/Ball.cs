@@ -5,6 +5,8 @@ public class Ball : MonoBehaviour
     [SerializeField] private Vector2 startForce;
     [SerializeField] private Rigidbody2D _ballRigidbody;
     [SerializeField] private GameObject nextBall;
+    [SerializeField] private AudioSource src;
+    [SerializeField] private AudioClip ac;
     
     void Start()
     {
@@ -18,6 +20,9 @@ public class Ball : MonoBehaviour
     {
         if (nextBall != null)
         {
+            src.clip = ac;
+            src.Play();
+            
             GameObject ball1 = Instantiate(nextBall, _ballRigidbody.position + Vector2.right / 4f, Quaternion.identity);
             GameObject ball2 = Instantiate(nextBall, _ballRigidbody.position + Vector2.left / 4f, Quaternion.identity);
 
