@@ -601,6 +601,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3739769945377755600, guid: db0d758b1a2124adf905a37b62202511, type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 3739769945377755602, guid: db0d758b1a2124adf905a37b62202511, type: 3}
       propertyPath: m_Name
       value: Ball3

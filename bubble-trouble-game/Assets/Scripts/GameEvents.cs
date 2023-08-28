@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class GameEvents : MonoBehaviour
 {
-    public static GameEvents Instance;
+    public static GameEvents Instance { get; private set; }
 
     public UnityEvent BallCreatedEvent = new UnityEvent();
     public UnityEvent BallDestroyedEvent = new UnityEvent();

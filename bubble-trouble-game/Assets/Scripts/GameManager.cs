@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     private int _ballsInScene = 0;
     private const int StartLives = 3;
     private int _livesCount;
-    private float _currentScore = 0f;
 
     public static GameManager Instance { get; private set; }
     void Awake()
@@ -69,7 +68,6 @@ public class GameManager : MonoBehaviour
         // When a ball is destroyed in the scene, decrease by 1 the balls counter
         _ballsInScene--;
         Debug.Log("Number of balls in scene: " + _ballsInScene);
-        CheckLevelCleared();
     }
     
     private void OnLifeDecrease()
@@ -98,8 +96,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("Remained lives: " + _livesCount);
     }
 
-    private void CheckLevelCleared()
+    public void CheckLevelCleared()
     {
+        Debug.Log("CheckLevelCleared");
+        Debug.Log("Number of balls in scene: " + _ballsInScene);
         // If there are no balls in the scene - you won the level
         if (_ballsInScene == 0)
         {
@@ -115,6 +115,31 @@ public class GameManager : MonoBehaviour
                 Debug.Log("You Won The Game!");
                 SceneManager.LoadScene("MainMenu");
             }
+        }
+    }
+
+    public bool IsSingleBall()
+    {
+        return _ballsInScene == 1;
+    }
+
+    public void LevelCleared()
+    {
+        Debug.Log("CheckLevelCleared");
+        Debug.Log("Number of balls in scene: " + _ballsInScene);
+        // If there are no balls in the scene - you won the level
+        
+        Debug.Log("Level Cleared!");
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            // If there are no more levels - You won the game: Go to main menu
+            Debug.Log("You Won The Game!");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

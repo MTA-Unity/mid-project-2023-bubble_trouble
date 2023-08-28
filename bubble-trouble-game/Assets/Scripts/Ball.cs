@@ -16,6 +16,7 @@ public class Ball : MonoBehaviour
 
     public void Split()
     {
+        Debug.Log("In Split");
         if (nextBall != null)
         {
             GameObject ball1 = Instantiate(nextBall, _ballRigidbody.position + Vector2.right / 4f, Quaternion.identity);
@@ -24,7 +25,7 @@ public class Ball : MonoBehaviour
             ball1.GetComponent<Ball>().startForce = new Vector2(2f, 5f);
             ball2.GetComponent<Ball>().startForce = new Vector2(-2f, 5f);
         }
-        
+
         Destroy(gameObject);
     }
     
@@ -32,5 +33,10 @@ public class Ball : MonoBehaviour
     {
         // Trigger the event when a ball is destroyed
         GameEvents.Instance.TriggerBallDestroyedEvent();
+    }
+
+    public bool HasNextBall()
+    {
+        return nextBall;
     }
 }
