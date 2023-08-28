@@ -4,8 +4,10 @@ using UnityEngine;
 public class Chain : MonoBehaviour
 {
     [SerializeField] private Transform _playerTransform;
-    
     [SerializeField] private float _chainSpeed = 2f;
+    [SerializeField] private AudioSource src;
+    [SerializeField] private AudioClip ac;
+    
     public static bool isFired;
 
     private void Start()
@@ -18,6 +20,8 @@ public class Chain : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             isFired = true;
+            src.clip = ac;
+            src.Play();
         };
         if (isFired)
         {
