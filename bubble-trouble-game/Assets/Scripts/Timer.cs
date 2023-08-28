@@ -21,12 +21,16 @@ public class Timer : MonoBehaviour
             // Update the timer if it's running
             _remainingTime -= Time.deltaTime;
             
-            // TODO Debug timer
             int currentSecond = Mathf.FloorToInt(_remainingTime);
             if (currentSecond != previousSecond)
             {
                 previousSecond = currentSecond;
                 Debug.Log("Time remaining: " + currentSecond + " seconds");
+            }
+
+            if (_remainingTime < 0)
+            {
+                GameEvents.Instance.TriggerTimeUpEvent();
             }
         }
     }

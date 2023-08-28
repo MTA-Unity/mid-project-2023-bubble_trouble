@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Ball"))
+        if (other.collider.tag.Contains("Ball"))
         {
             GameEvents.Instance.TriggerLifeDecreaseEvent();
         }
