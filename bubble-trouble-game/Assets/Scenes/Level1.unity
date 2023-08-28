@@ -509,7 +509,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &767094744
 MonoBehaviour:
@@ -608,6 +608,10 @@ PrefabInstance:
     - target: {fileID: 3739769945377755602, guid: db0d758b1a2124adf905a37b62202511, type: 3}
       propertyPath: m_Name
       value: Ball3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739769945377755602, guid: db0d758b1a2124adf905a37b62202511, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3739769945377755606, guid: db0d758b1a2124adf905a37b62202511, type: 3}
       propertyPath: m_RootOrder
@@ -742,7 +746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1635587562534316374, guid: fac1b2eec5e224e5cbb51f660dba973d, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1635587562534316374, guid: fac1b2eec5e224e5cbb51f660dba973d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -795,7 +799,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5473437717671505658, guid: 5d056187a6b474daa8194b875cf1d8d0, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5473437717671505658, guid: 5d056187a6b474daa8194b875cf1d8d0, type: 3}
       propertyPath: m_LocalPosition.x

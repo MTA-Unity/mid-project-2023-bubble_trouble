@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private Timer _timer;
     private int _ballsInScene = 0;
     private const int StartLives = 3;
     private int _livesCount;
@@ -27,13 +26,13 @@ public class GameManager : MonoBehaviour
     {
         _livesCount = StartLives;
         Debug.Log("Current lives: " + _livesCount);
-        _timer = FindObjectOfType<Timer>();
         
         // Subscribe to game events
         GameEvents.Instance.BallCreatedEvent.AddListener(OnBallCreated);
         GameEvents.Instance.BallDestroyedEvent.AddListener(OnBallDestroyed);
         GameEvents.Instance.LifeDecreaseEvent.AddListener(OnLifeDecrease);
         GameEvents.Instance.LifeIncrementEvent.AddListener(OnLifeIncrement);
+        GameEvents.Instance.TimeUpEvent.AddListener(OnTimeUp);
     }
     
     private void OnDestroy()
@@ -43,17 +42,9 @@ public class GameManager : MonoBehaviour
         GameEvents.Instance.BallDestroyedEvent.RemoveListener(OnBallDestroyed);
         GameEvents.Instance.LifeDecreaseEvent.RemoveListener(OnLifeDecrease);
         GameEvents.Instance.LifeIncrementEvent.RemoveListener(OnLifeIncrement);
+        GameEvents.Instance.TimeUpEvent.RemoveListener(OnTimeUp);
     }
 
-    void Update()
-    {
-        // Timer lose life condition - If the time has run out decrease a life
-        if (_timer.ShowRemainingTime() < 0)
-        {
-            GameEvents.Instance.TriggerLifeDecreaseEvent();
-        }
-    }
-    
     private void OnBallCreated()
     {
         Debug.Log("OnBallCreated");
@@ -96,6 +87,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Remained lives: " + _livesCount);
     }
 
+    private void OnTimeUp()
+    {
+        Debug.Log("Time is Up!");
+        GameEvents.Instance.TriggerLifeDecreaseEvent();
+    }
+
     public void CheckLevelCleared()
     {
         Debug.Log("CheckLevelCleared");
@@ -125,11 +122,10 @@ public class GameManager : MonoBehaviour
 
     public void LevelCleared()
     {
-        Debug.Log("CheckLevelCleared");
+        Debug.Log("Level Cleared!");
         Debug.Log("Number of balls in scene: " + _ballsInScene);
         // If there are no balls in the scene - you won the level
         
-        Debug.Log("Level Cleared!");
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
         {

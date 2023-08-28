@@ -9,6 +9,7 @@ public class GameEvents : MonoBehaviour
     public UnityEvent BallDestroyedEvent = new UnityEvent();
     public UnityEvent LifeDecreaseEvent = new UnityEvent();
     public UnityEvent LifeIncrementEvent = new UnityEvent();
+    public UnityEvent TimeUpEvent = new UnityEvent();
 
     void Awake()
     {
@@ -42,5 +43,10 @@ public class GameEvents : MonoBehaviour
     public void TriggerLifeIncrementEvent()
     {
         LifeIncrementEvent?.Invoke();
+    }
+    
+    public void TriggerTimeUpEvent()
+    {
+        TimeUpEvent?.Invoke();
     }
 }
