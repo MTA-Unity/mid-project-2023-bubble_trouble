@@ -1,21 +1,34 @@
+using System;
 using UnityEngine;
 
 public class ChainCollision : MonoBehaviour
 {
+    // A bool to prevent multiple triggers of the ball hit by the chain
+    private bool _isColliding;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Chain.isFired = false;
+        Chain.IsFired = false;
         
-        if (other.tag.Contains("Ball"))
+        if (other.tag.Contains("Ball") && !_isColliding)
         {
-            bool _singleBall = GameManager.Instance.IsSingleBall();
+            Debug.Log("A ball has been hit");
+            _isColliding = true;
             var ball = other.GetComponent<Ball>();
-            ScoreManager.Instance.AddBallHitScore(other.tag);
+
+            // Check for winning condition - One ball in scene without nextBall
+            bool hasWon = GameManager.Instance.HasWonLevel(ball.HasNextBall());
+            
             ball.Split();
-            if (_singleBall && !ball.HasNextBall())
+            if (hasWon)
             {
-                GameManager.Instance.LevelCleared();
+                GameManager.Instance.ClearLevel();
             }
+            ScoreManager.Instance.AddBallHitScore(other.tag);
         }
+    }
+
+    private void Update()
+    {
+        _isColliding = false;
     }
 }

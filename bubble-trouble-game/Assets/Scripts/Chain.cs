@@ -5,25 +5,30 @@ public class Chain : MonoBehaviour
 {
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private float _chainSpeed = 2f;
-    [SerializeField] private AudioSource src;
+    private AudioSource src;
     [SerializeField] private AudioClip ac;
     
-    public static bool isFired;
+    public static bool IsFired;
 
     private void Start()
     {
-        isFired = false;
+        src = GameObject.FindObjectOfType<AudioSource>();
+        IsFired = false;
     }
 
     void Update()
     {
         if (Input.GetKeyDown("space"))
         {
-            isFired = true;
-            src.clip = ac;
-            src.Play();
+            // For playing the shooting sound only once when the chain has been released
+            if (!IsFired)
+            {
+                src.clip = ac;
+                src.Play();
+            }
+            IsFired = true;
         };
-        if (isFired)
+        if (IsFired)
         {
             transform.localScale += Vector3.up * (Time.deltaTime * _chainSpeed);
         }

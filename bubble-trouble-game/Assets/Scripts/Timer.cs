@@ -26,6 +26,7 @@ public class Timer : MonoBehaviour
             {
                 previousSecond = currentSecond;
                 Debug.Log("Time remaining: " + currentSecond + " seconds");
+                Debug.Log("Number of balls in Scene (Timer): " + GameManager.Instance.GetBallsInScene());
             }
 
             if (_remainingTime < 0)

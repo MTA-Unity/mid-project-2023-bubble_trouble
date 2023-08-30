@@ -65,12 +65,12 @@ public class GameManager : MonoBehaviour
     {
         // When a life of the player is lost, decrease by 1 the lives counter
         _livesCount--;
-        Debug.Log("Remained lives: " + _livesCount);
         
         // If there are no lives remained, you lost the game
         if (_livesCount == 0)
         {
             Debug.Log("You Lost The Game!");
+            _livesCount = StartLives;
             SceneManager.LoadScene("MainMenu");
         }
         else
@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
     {
         // When a life of the player is gained, increment by 1 the lives counter
         _livesCount++;
-        Debug.Log("Remained lives: " + _livesCount);
     }
 
     private void OnTimeUp()
@@ -93,34 +92,17 @@ public class GameManager : MonoBehaviour
         GameEvents.Instance.TriggerLifeDecreaseEvent();
     }
 
-    public void CheckLevelCleared()
+    public bool HasWonLevel(bool hasNextBall)
     {
-        Debug.Log("CheckLevelCleared");
-        Debug.Log("Number of balls in scene: " + _ballsInScene);
-        // If there are no balls in the scene - you won the level
-        if (_ballsInScene == 0)
-        {
-            Debug.Log("Level Cleared!");
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
-            {
-                SceneManager.LoadScene(nextSceneIndex);
-            }
-            else
-            {
-                // If there are no more levels - You won the game: Go to main menu
-                Debug.Log("You Won The Game!");
-                SceneManager.LoadScene("MainMenu");
-            }
-        }
+        return _ballsInScene == 1 && !hasNextBall;
     }
 
-    public bool IsSingleBall()
+    public int GetBallsInScene()
     {
-        return _ballsInScene == 1;
+        return _ballsInScene;
     }
 
-    public void LevelCleared()
+    public void ClearLevel()
     {
         Debug.Log("Level Cleared!");
         Debug.Log("Number of balls in scene: " + _ballsInScene);
