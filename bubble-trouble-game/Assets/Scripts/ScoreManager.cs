@@ -38,6 +38,8 @@ public class ScoreManager : MonoBehaviour
     public void AddBallHitScore(string ballSize)
     {
         _currentScore += _ballSizeToScore[ballSize];
+        GameUI.Instance.updateScore();
+
         Debug.Log("Added score: " + _ballSizeToScore[ballSize]);
         Debug.Log("Current score: " + _currentScore);
     }
@@ -47,8 +49,13 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    private void ResetScore()
+    public void ResetScore()
     {
         _currentScore = 0f;
+    }
+
+    public float GetCurrentScore()
+    {
+        return _currentScore;
     }
 }

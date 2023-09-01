@@ -24,7 +24,10 @@ public class Chain : MonoBehaviour
             if (!IsFired)
             {
                 src.clip = ac;
-                src.Play();
+                if (GameUI.Instance.IsAudioEnable())
+                {
+                    src.Play();
+                }
             }
             IsFired = true;
         };

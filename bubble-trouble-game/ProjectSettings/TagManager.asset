@@ -9,6 +9,9 @@ TagManager:
   - Ball2
   - Ball3
   - Ball4
+  - ToolBarManager
+  - scoreText
+  - Sound
   layers:
   - Default
   - TransparentFX

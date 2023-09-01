@@ -21,8 +21,13 @@ public class Ball : MonoBehaviour
     public void Split()
     {
         Debug.Log("In Split");
+
         src.clip = ac;
-        src.Play();
+        if (GameUI.Instance.IsAudioEnable())
+        {
+            src.Play();
+        }
+
         if (nextBall != null)
         {
             GameObject ball1 = Instantiate(nextBall, _ballRigidbody.position + Vector2.right / 4f, Quaternion.identity);
