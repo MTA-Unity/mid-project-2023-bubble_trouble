@@ -21,7 +21,7 @@ public class ChainCollision : MonoBehaviour
             ball.Split();
             if (hasWon)
             {
-                GameManager.Instance.ClearLevel();
+                GameManager.Instance.ClearLevelWon();
             }
             ScoreManager.Instance.AddBallHitScore(other.tag);
         }

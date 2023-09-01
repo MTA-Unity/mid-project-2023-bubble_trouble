@@ -28,21 +28,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("Current lives: " + _livesCount);
         
         // Subscribe to game events
-        GameEvents.Instance.BallCreatedEvent.AddListener(OnBallCreated);
-        GameEvents.Instance.BallDestroyedEvent.AddListener(OnBallDestroyed);
-        GameEvents.Instance.LifeDecreaseEvent.AddListener(OnLifeDecrease);
-        GameEvents.Instance.LifeIncrementEvent.AddListener(OnLifeIncrement);
-        GameEvents.Instance.TimeUpEvent.AddListener(OnTimeUp);
+        GameEvents.Instance.ballCreatedEvent.AddListener(OnBallCreated);
+        GameEvents.Instance.ballDestroyedEvent.AddListener(OnBallDestroyed);
+        GameEvents.Instance.lifeDecreaseEvent.AddListener(OnLifeDecrease);
+        GameEvents.Instance.lifeIncrementEvent.AddListener(OnLifeIncrement);
+        GameEvents.Instance.timeUpEvent.AddListener(OnTimeUp);
     }
     
     private void OnDestroy()
     {
         // Unsubscribe from ball events
-        GameEvents.Instance.BallCreatedEvent.RemoveListener(OnBallCreated);
-        GameEvents.Instance.BallDestroyedEvent.RemoveListener(OnBallDestroyed);
-        GameEvents.Instance.LifeDecreaseEvent.RemoveListener(OnLifeDecrease);
-        GameEvents.Instance.LifeIncrementEvent.RemoveListener(OnLifeIncrement);
-        GameEvents.Instance.TimeUpEvent.RemoveListener(OnTimeUp);
+        GameEvents.Instance.ballCreatedEvent.RemoveListener(OnBallCreated);
+        GameEvents.Instance.ballDestroyedEvent.RemoveListener(OnBallDestroyed);
+        GameEvents.Instance.lifeDecreaseEvent.RemoveListener(OnLifeDecrease);
+        GameEvents.Instance.lifeIncrementEvent.RemoveListener(OnLifeIncrement);
+        GameEvents.Instance.timeUpEvent.RemoveListener(OnTimeUp);
     }
 
     private void OnBallCreated()
@@ -70,12 +70,16 @@ public class GameManager : MonoBehaviour
         if (_livesCount == 0)
         {
             Debug.Log("You Lost The Game!");
+            Debug.Log("Your score for the game: " + ScoreManager.Instance.GetCurrentScore());
+            
+            ScoreManager.Instance.ResetScore();
             _livesCount = StartLives;
             SceneManager.LoadScene("MainMenu");
         }
         else
         {
             Debug.Log("ResetLevel");
+            Debug.Log("Remained Lives: " + _livesCount);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -102,12 +106,17 @@ public class GameManager : MonoBehaviour
         return _ballsInScene;
     }
 
-    public void ClearLevel()
+    public void ClearLevelWon()
     {
+        // If there are no balls in the scene - you won the level
         Debug.Log("Level Cleared!");
         Debug.Log("Number of balls in scene: " + _ballsInScene);
-        // If there are no balls in the scene - you won the level
         
+        // Add score according to remained time
+        var timer = FindObjectOfType<Timer>();
+        ScoreManager.Instance.AddRemainedTimeScore(timer.ShowRemainingTime());
+        
+        // Go to next level if there are any left
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
         {
