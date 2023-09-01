@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.collider.tag.Contains("Ball"))
         {
+            Debug.Log("The player has been hit");
             GameEvents.Instance.TriggerLifeDecreaseEvent();
         }
     }

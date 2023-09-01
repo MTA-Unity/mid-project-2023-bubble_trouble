@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class GameEvents : MonoBehaviour
 {
     public static GameEvents Instance { get; private set; }
 
-    public UnityEvent BallCreatedEvent = new UnityEvent();
-    public UnityEvent BallDestroyedEvent = new UnityEvent();
-    public UnityEvent LifeDecreaseEvent = new UnityEvent();
-    public UnityEvent LifeIncrementEvent = new UnityEvent();
-    public UnityEvent TimeUpEvent = new UnityEvent();
+    public UnityEvent ballCreatedEvent = new UnityEvent();
+    public UnityEvent ballDestroyedEvent = new UnityEvent();
+    public UnityEvent lifeDecreaseEvent = new UnityEvent();
+    public UnityEvent lifeIncrementEvent = new UnityEvent();
+    public UnityEvent timeUpEvent = new UnityEvent();
 
     void Awake()
     {
@@ -27,26 +28,26 @@ public class GameEvents : MonoBehaviour
 
     public void TriggerBallCreatedEvent()
     {
-        BallCreatedEvent?.Invoke();
+        ballCreatedEvent?.Invoke();
     }
     
     public void TriggerBallDestroyedEvent()
     {
-        BallDestroyedEvent?.Invoke();
+        ballDestroyedEvent?.Invoke();
     }
     
     public void TriggerLifeDecreaseEvent()
     {
-        LifeDecreaseEvent?.Invoke();
+        lifeDecreaseEvent?.Invoke();
     }
     
     public void TriggerLifeIncrementEvent()
     {
-        LifeIncrementEvent?.Invoke();
+        lifeIncrementEvent?.Invoke();
     }
     
     public void TriggerTimeUpEvent()
     {
-        TimeUpEvent?.Invoke();
+        timeUpEvent?.Invoke();
     }
 }

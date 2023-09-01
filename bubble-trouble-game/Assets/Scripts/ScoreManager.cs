@@ -5,8 +5,8 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
-    private const int TimeScoreMultiplier = 5; // Score multiplier for time remaining
-    private float _currentScore = 0f;
+    private const int TimeScoreMultiplier = 10; // Score multiplier for time remaining
+    private int _currentScore = 0;
     private Dictionary<string, int> _ballSizeToScore;
 
     void Awake()
@@ -42,16 +42,25 @@ public class ScoreManager : MonoBehaviour
 
         Debug.Log("Added score: " + _ballSizeToScore[ballSize]);
         Debug.Log("Current score: " + _currentScore);
+
     }
 
-    void AddRemainTimeScores()
+    public void AddRemainedTimeScore(float remainedTime)
     {
-        
+        Debug.Log("Remained time to add score: " + remainedTime);
+        int addedScore = Mathf.FloorToInt(remainedTime) * TimeScoreMultiplier;
+        Debug.Log("Added score from time: " + addedScore);
+        _currentScore += addedScore;
     }
 
     public void ResetScore()
     {
-        _currentScore = 0f;
+        _currentScore = 0;
+    }
+
+    public int GetCurrentScore()
+    {
+        return _currentScore;
     }
 
     public float GetCurrentScore()
