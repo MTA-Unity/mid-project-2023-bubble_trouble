@@ -124,8 +124,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // If there are no more levels - You won the game: Go to main menu
+            // If there are no more levels - You won the game
+            // Check for high score and save it
             Debug.Log("You Won The Game!");
+            int score = ScoreManager.Instance.GetCurrentScore();
+            if (score > PlayerPrefs.GetInt("HighScore", 0))
+            {
+                Debug.Log("You got high score! " + score);
+                PlayerPrefs.SetInt("HighScore", score);
+            }
+            
             SceneManager.LoadScene("MainMenu");
         }
     }
