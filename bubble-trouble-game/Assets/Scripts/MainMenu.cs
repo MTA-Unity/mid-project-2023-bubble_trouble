@@ -1,47 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public static bool isHighScorePopupEnable = false;
-    public GameObject HighScorePopup;
-
-
-    public void Awake()
-    {
-
-    }
-
+    private static bool _isHighScorePopupEnable = false;
+    public GameObject highScorePopup;
+    [SerializeField] private TextMeshProUGUI  highScoreText;
 
     void Start()
     {
-        HighScorePopup.SetActive(false);
+        highScorePopup.SetActive(false);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isHighScorePopupEnable)
-            {
-                HighScoreResume();
-            }
-        }
-    }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Escape))
+    //     {
+    //         if (_isHighScorePopupEnable)
+    //         {
+    //             HighScoreResume();
+    //         }
+    //     }
+    // }
 
-    public void HighScoreResume()
-    {
-        Debug.Log("High Score popup resumed");
-        HighScorePopup.SetActive(false);
-        isHighScorePopupEnable = false;
+    // public void HighScoreResume()
+    // {
+    //     Debug.Log("High Score popup resumed");
+    //     highScorePopup.SetActive(false);
+    //     _isHighScorePopupEnable = false;
+    // }
 
-    }
-
-
-    public void startGame()
+    public void StartGame()
     {
         Debug.Log("Load Level1");
         SceneManager.LoadScene("Level1");
@@ -56,7 +48,13 @@ public class MainMenu : MonoBehaviour
     public void OpenHighScorePopup()
     {
         Debug.Log("High Score popup opened");
-        HighScorePopup.SetActive(true);
-        isHighScorePopupEnable = true;
+        highScorePopup.SetActive(true);
+        highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+    }
+
+    public void CloseHighScorePopup()
+    {
+        Debug.Log("High Score popup closed");
+        highScorePopup.SetActive(false);
     }
 }

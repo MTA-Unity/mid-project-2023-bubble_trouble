@@ -197,19 +197,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f9a8cd41f0f4aafaaf0817947113e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallCreatedEvent:
+  ballCreatedEvent:
     m_PersistentCalls:
       m_Calls: []
-  BallDestroyedEvent:
+  ballDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
-  LifeDecreaseEvent:
+  lifeDecreaseEvent:
     m_PersistentCalls:
       m_Calls: []
-  LifeIncrementEvent:
+  lifeIncrementEvent:
     m_PersistentCalls:
       m_Calls: []
-  TimeUpEvent:
+  timeUpEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &113029669
@@ -1062,7 +1062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9a3c3f6017ea042911abec977b6a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HighScorePopup: {fileID: 1370331466}
+  highScorePopup: {fileID: 0}
+  closeHighScorePopupButton: {fileID: 0}
 --- !u!4 &2028580491
 Transform:
   m_ObjectHideFlags: 0
@@ -1989,7 +1990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9a3c3f6017ea042911abec977b6a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HighScorePopup: {fileID: 1275098408}
+  highScorePopup: {fileID: 1275098408}
+  closeHighScorePopupButton: {fileID: 0}
 --- !u!4 &5488283627593067908
 Transform:
   m_ObjectHideFlags: 0
