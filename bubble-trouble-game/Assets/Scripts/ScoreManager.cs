@@ -62,9 +62,4 @@ public class ScoreManager : MonoBehaviour
     {
         return _currentScore;
     }
-
-    public float GetCurrentScore()
-    {
-        return _currentScore;
-    }
 }

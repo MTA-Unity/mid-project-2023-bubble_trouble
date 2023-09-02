@@ -169,5 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388ecbcc36508a04981250d53cf1bf96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 1635587562534316374, guid: fac1b2eec5e224e5cbb51f660dba973d, type: 3}
-  _chainSpeed: 16
+  _playerTransform: {fileID: 8932459478313247271, guid: db07dfcc09f964cdc996572c2bba0fff, type: 3}
+  _chainSpeed: 18
+  ac: {fileID: 8300000, guid: 3a38edca5dbc0a54b8bdf0c308129881, type: 3}
