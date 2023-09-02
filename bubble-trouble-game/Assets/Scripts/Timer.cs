@@ -39,19 +39,7 @@ public class Timer : MonoBehaviour
             }
         }
     }
-    
-    // Restart timer to start level time
-    public void RestartTimer()
-    {
-        _remainingTime = _levelTimeInSeconds;
-    }
-    
-    // On/off timer run
-    public void ToggleTimerRun()
-    {
-        _isTimerRunning = !_isTimerRunning;
-    }
-    
+
     // Get the remaining time left for level
     public float ShowRemainingTime()
     {

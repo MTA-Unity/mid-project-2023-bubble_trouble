@@ -12,13 +12,10 @@ public class PlayerController : MonoBehaviour
     private const string DirectionParameterName = "Direction";
     private const string MovingParameterName = "Moving";
 
-    
     private static readonly int ShootTrigger = Animator.StringToHash(ShootTriggerParameterName);
     private static readonly int Direction = Animator.StringToHash(DirectionParameterName);
     private static readonly int Moving = Animator.StringToHash(MovingParameterName);
 
-
-    
     private Vector2 _newPosition;
 
     private void Awake()
@@ -28,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Player movement control
         var horizontalInput = Input.GetAxis("Horizontal");
         var horizontalMovementDelta = horizontalInput * Time.fixedDeltaTime * _movementSpeed;
         
@@ -55,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        // If a ball hits the player - decrease one life
         if (other.collider.tag.Contains("Ball"))
         {
             Debug.Log("The player has been hit");

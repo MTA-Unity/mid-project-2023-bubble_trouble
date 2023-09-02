@@ -20,6 +20,8 @@ public class GameFinishScreenManager : MonoBehaviour
     
     public void Setup(bool win, int score, bool highScore)
     {
+        // Show end game panel
+        // win/lose text + the player score + high score if it's highest + go to main menu button
         gameFinishScreen.SetActive(true);
         gameStatusText.text = win ? WinText : LoseText;
         pointsText.text = score.ToString() + " Points";
@@ -33,6 +35,7 @@ public class GameFinishScreenManager : MonoBehaviour
 
     private void GoToMainMenu()
     {
+        // Resume game pause and go to main menu
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }

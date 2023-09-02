@@ -46,6 +46,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AddRemainedTimeScore(float remainedTime)
     {
+        // Add score according to remained time
         Debug.Log("Remained time to add score: " + remainedTime);
         int addedScore = Mathf.FloorToInt(remainedTime) * TimeScoreMultiplier;
         Debug.Log("Added score from time: " + addedScore);

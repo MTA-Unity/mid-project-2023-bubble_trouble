@@ -7,7 +7,7 @@ using TMPro;
 public class GameUI : MonoBehaviour
 {
     private int _currentLives;
-    private bool _IsEnable = true;
+    private bool _isEnable = true;
     private GameObject _scoreTextGameObject;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Sprite[] _liveSprites;
@@ -38,11 +38,11 @@ public class GameUI : MonoBehaviour
     {
         updateScore();
         updateLives();
-
     }
 
     public void updateScore()
     {
+        // Update the score text in the tool bar
         _scoreTextGameObject = GameObject.FindWithTag("scoreText");
 
         if (_scoreTextGameObject != null)
@@ -50,22 +50,22 @@ public class GameUI : MonoBehaviour
             scoreText = _scoreTextGameObject.GetComponent<TextMeshProUGUI>();
             scoreText.text = ScoreManager.Instance.GetCurrentScore().ToString();
         }
-
     }
 
     public void updateLives()
     {
+        // Update the lives text in the tool bar
         _currentLives = GameManager.Instance.GetLivesCount();
         _livesImage.sprite = _liveSprites[_currentLives];
     }
 
     public bool IsAudioEnable()
     {
-        return _IsEnable;
+        return _isEnable;
     }
 
     public void SetAudioEnable(bool audio)
     {
-        _IsEnable = audio;
+        _isEnable = audio;
     }
 }

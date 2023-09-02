@@ -1,12 +1,9 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private static bool _isHighScorePopupEnable = false;
     public GameObject highScorePopup;
     [SerializeField] private TextMeshProUGUI  highScoreText;
 
@@ -14,24 +11,6 @@ public class MainMenu : MonoBehaviour
     {
         highScorePopup.SetActive(false);
     }
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Escape))
-    //     {
-    //         if (_isHighScorePopupEnable)
-    //         {
-    //             HighScoreResume();
-    //         }
-    //     }
-    // }
-
-    // public void HighScoreResume()
-    // {
-    //     Debug.Log("High Score popup resumed");
-    //     highScorePopup.SetActive(false);
-    //     _isHighScorePopupEnable = false;
-    // }
 
     public void StartGame()
     {
@@ -41,6 +20,7 @@ public class MainMenu : MonoBehaviour
 
     public void ExitGame()
     {
+        // Exit the game in in editor and in application
         Debug.Log("Game closed");
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
