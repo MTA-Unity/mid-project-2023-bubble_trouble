@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -63,7 +64,6 @@ public class GameManager : MonoBehaviour
         // When a ball is destroyed in the scene, decrease by 1 the balls counter
         _ballsInScene--;
         Debug.Log("Number of balls in scene: " + _ballsInScene);
-
     }
 
     private void OnLifeDecrease()
@@ -78,10 +78,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("You Lost The Game!");
             Debug.Log("Your score for the game: " + ScoreManager.Instance.GetCurrentScore());
             
+            var scoreHighScore = UpdateHighScore();
+            ShowFinishGameScreen(false, scoreHighScore.Item1, scoreHighScore.Item2);
+            
             ScoreManager.Instance.ResetScore();
             _livesCount = StartLives;
-            ScoreManager.Instance.ResetScore();
-            SceneManager.LoadScene("MainMenu");
         }
         else
         {
@@ -109,11 +110,6 @@ public class GameManager : MonoBehaviour
         return _ballsInScene == 1 && !hasNextBall;
     }
 
-    public int GetBallsInScene()
-    {
-        return _ballsInScene;
-    }
-
     public void ClearLevelWon()
     {
         // If there are no balls in the scene - you won the level
@@ -135,19 +131,37 @@ public class GameManager : MonoBehaviour
             // If there are no more levels - You won the game
             // Check for high score and save it
             Debug.Log("You Won The Game!");
-            int score = ScoreManager.Instance.GetCurrentScore();
-            if (score > PlayerPrefs.GetInt("HighScore", 0))
-            {
-                Debug.Log("You got high score! " + score);
-                PlayerPrefs.SetInt("HighScore", score);
-            }
+            var scoreHighScore = UpdateHighScore();
+            ShowFinishGameScreen(true, scoreHighScore.Item1, scoreHighScore.Item2);
             
-            SceneManager.LoadScene("MainMenu");
+            ScoreManager.Instance.ResetScore();
+            _livesCount = StartLives;
         }
+    }
+
+    private (int, bool) UpdateHighScore()
+    {
+        int score = ScoreManager.Instance.GetCurrentScore();
+        bool highScore = score > PlayerPrefs.GetInt("HighScore", 0);
+        
+        if (highScore)
+        {
+            Debug.Log("You got high score! " + score);
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+
+        return (score, highScore);
+    }
+
+    private void ShowFinishGameScreen(bool win, int score, bool highScore)
+    {
+        var gameFinishScreenManager = FindObjectOfType<GameFinishScreenManager>();
+        gameFinishScreenManager.Setup(win, score, highScore);
     }
 
     public int GetLivesCount()
     {
         return _livesCount;
     }
+    
 }

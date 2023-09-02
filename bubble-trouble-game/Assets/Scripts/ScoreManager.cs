@@ -42,7 +42,6 @@ public class ScoreManager : MonoBehaviour
 
         Debug.Log("Added score: " + _ballSizeToScore[ballSize]);
         Debug.Log("Current score: " + _currentScore);
-
     }
 
     public void AddRemainedTimeScore(float remainedTime)

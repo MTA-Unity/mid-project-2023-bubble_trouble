@@ -13,9 +13,10 @@ public class ChainCollision : MonoBehaviour
         {
             Debug.Log("A ball has been hit");
             _isColliding = true;
-            var ball = other.GetComponent<Ball>();
+            ScoreManager.Instance.AddBallHitScore(other.tag);
 
             // Check for winning condition - One ball in scene without nextBall
+            var ball = other.GetComponent<Ball>();
             bool hasWon = GameManager.Instance.HasWonLevel(ball.HasNextBall());
             
             ball.Split();
@@ -23,7 +24,6 @@ public class ChainCollision : MonoBehaviour
             {
                 GameManager.Instance.ClearLevelWon();
             }
-            ScoreManager.Instance.AddBallHitScore(other.tag);
         }
     }
 
