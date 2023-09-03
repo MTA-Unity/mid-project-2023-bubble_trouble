@@ -4,12 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject highScorePopup;
+    public GameObject highScoreScreen;
     [SerializeField] private TextMeshProUGUI  highScoreText;
 
     void Start()
     {
-        highScorePopup.SetActive(false);
+        highScoreScreen.SetActive(false);
     }
 
     public void StartGame()
@@ -29,16 +29,16 @@ public class MainMenu : MonoBehaviour
         #endif
     }
 
-    public void OpenHighScorePopup()
+    public void OpenHighScoreScreen()
     {
-        Debug.Log("High Score popup opened");
-        highScorePopup.SetActive(true);
+        Debug.Log("High Score Screen opened");
+        highScoreScreen.SetActive(true);
         highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 
-    public void CloseHighScorePopup()
+    public void CloseHighScoreScreen()
     {
-        Debug.Log("High Score popup closed");
-        highScorePopup.SetActive(false);
+        Debug.Log("High Score Screen closed");
+        highScoreScreen.SetActive(false);
     }
 }
